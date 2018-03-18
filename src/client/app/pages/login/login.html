@@ -1,0 +1,50 @@
+<div class="main" style="background:url(https://csdnimg.cn/passport/login-bg.png)">
+    <div class="container container-custom">
+        <div class="row wrap-login">
+            <div class="login-banner col-sm-6 col-md-7 col-lg-7 hidden-xs">
+                <a href="https://edu.csdn.net/member?utm_source=login" target="_blank"><img src="/static/images/login-banner.png" class="img-responsive"></a>
+            </div>
+            <div class="login-user col-xs-12 col-sm-6 col-md-5 col-lg-5">
+                <div class="login-part">
+                    <h3>帐号登录</h3>
+                    <div class="user-info">
+                        <div class="user-pass">
+                            <form novalidate #form="ngForm" (ngSubmit)="login(form)">
+                                <div class="form-group has-feedback" [ngClass]="{'has-error': form.submitted && (userName.invalid || password.invalid)}">
+                                    <span class="fa fa-user form-control-feedback user-icon"></span>
+                                    <input id="username" name="username" tabindex="1" placeholder="输入手机号/邮箱" class="user-name" type="text" #userName="ngModel" [(ngModel)]="user.username" autocomplete="off" required maxlength="30" pattern="^[0-9a-zA-Z]*$">
+                                    <span class="fa fa-key form-control-feedback key-icon"></span>
+                                    <input id="password" name="password" tabindex="2" placeholder="输入密码" class="pass-word" type="password" #password="ngModel" [(ngModel)]="user.password" autocomplete="off" minlength="5" maxlength="20" required pattern="^[0-9A-Za-z]*$">
+                                    <div [hidden]="(userName.valid && password.invalid) || !form.submitted">
+                                        <span class="error-icon"></span><span class="error-mess" *ngIf="userName.errors?.required">请输入用户名!</span>
+                                        <span class="error-icon"></span><span class="help-block" *ngIf="userName.errors?.maxlength">UserID cannot more than 10 characters.</span>
+                                        <span class="error-icon"></span><span class="help-block" *ngIf="userName.errors?.pattern">UserID cannot contain any special symbol.</span>
+                                    </div>
+                                    <div [hidden]="(userName.invalid && password.valid) || !form.submitted">
+                                        <span class="error-icon"></span><span class="error-mess" *ngIf="password.errors?.required">请输入登录密码!</span>
+                                        <span class="error-icon"></span><span class="help-block" *ngIf="password.errors?.maxlength">UserID cannot more than 10 characters.</span>
+                                        <span class="error-icon"></span><span class="help-block" *ngIf="password.errors?.pattern">UserID cannot contain any special symbol.</span>
+                                    </div>
+                                </div>
+                                <div class="row forget-password">
+                                    <span class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                  <input type="checkbox" name="rememberMe" id="rememberMe" [(ngModel)]="user.rememberMe" class="auto-login" tabindex="4">
+                                  <label for="rememberMe">下次自动登录</label>
+                          </span>
+                                    <span class="col-xs-6 col-sm-6 col-md-6 col-lg-6 forget tracking-ad" data-mod="popu_26">
+                        <a href="https://passport.csdn.net/account/fpwd?action=forgotpassword&amp;service=https%3A%2F%2Fwww.csdn.net%2F" tabindex="5" target="_blank">忘记密码</a>
+                    </span>
+                                </div>
+                                <input class="logging" accesskey="l" value="登 录" tabindex="6" type="submit">
+                                <img *ngIf="loading" class="center-block" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                                />
+                            </form>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hb-footer></hb-footer>
