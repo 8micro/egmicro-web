@@ -6,6 +6,7 @@ const express = require('express');
 const session = require('express-session');
 const errorHandler = require('errorhandler');
 const request = require('request');
+
 require("console-stamp")(console, 'yyyy/mm/dd HH:MM:ss.l');
 
 const config = require('./config');
@@ -67,8 +68,8 @@ app.all('/api/*', (req, res, next) => {
     }
 
     if (req.session.currentUser && req.session.currentUser.UserID) {
-        if (req.session.cookie.originalMaxAge && req.session.cookie.originalMaxAge < (20 * 60 * 1000)) {
-            req.session.cookie.maxAge = 20 * 60 * 1000;
+        if (req.session.cookie.originalMaxAge && req.session.cookie.originalMaxAge < (24 * 60 * 60 * 1000)) {
+            req.session.cookie.maxAge = 24 * 60 * 60 * 1000;
         }
         return next();
     } else {
