@@ -10,32 +10,28 @@
                     <div class="user-info">
                         <div class="user-pass">
                             <form novalidate #form="ngForm" (ngSubmit)="login(form)">
-                                <div class="form-group has-feedback" [ngClass]="{'has-error': form.submitted && (userAccount.invalid || userPassword.invalid)}">
+                                <div class="form-group has-feedback" [ngClass]="{'has-error': form.submitted && (userAccountRef.invalid || userPasswordRef.invalid)}">
                                     <span class="fa fa-user form-control-feedback user-icon"></span>
-                                    <input id="userAccount" name="userAccount" tabindex="1" placeholder="输入手机号/邮箱" class="user-name" type="text" #userAccount="ngModel" [(ngModel)]="userAuth.userAccount" autocomplete="off" required>
+                                    <input name="useraccount" tabindex="1" placeholder="输入手机号/邮箱" class="user-name" type="text" #userAccountRef="ngModel" [(ngModel)]="userAuth.userAccount" autocomplete="off" required maxlength="50" minlength="8" />
                                     <span class="fa fa-key form-control-feedback key-icon"></span>
-                                    <input id="userPassword" name="userPassword" tabindex="2" placeholder="输入密码" class="pass-word" type="password" #userPassword="ngModel" [(ngModel)]="userAuth.userPassword" autocomplete="off" required>
-                                    <div [hidden]="(userAccount.valid && userPassword.invalid) || !form.submitted">
-                                        <!--<span class="error-icon"></span><span class="error-mess" *ngIf="userAccount.errors?.required">请输入登录手机号/邮箱.</span>-->
-                                        <!--<span class="error-icon"></span><span class="help-block" *ngIf="userAccount.errors?.maxlength">UserID cannot more than 10 characters.</span>-->
-                                        <!--<span class="error-icon"></span><span class="help-block" *ngIf="userAccount.errors?.pattern">UserID cannot contain any special symbol.</span>-->
-                                    </div>
-                                    <div [hidden]="(userAccount.invalid && userPassword.valid) || !form.submitted">
-                                        <!--<span class="error-icon"></span><span class="error-mess" *ngIf="userPassword.errors?.required">请输入登录密码.</span>-->
-                                        <!--<span class="error-icon"></span><span class="help-block" *ngIf="password.errors?.maxlength">UserID cannot more than 10 characters.</span>-->
-                                        <!--<span class="error-icon"></span><span class="help-block" *ngIf="password.errors?.pattern">UserID cannot contain any special symbol.</span>-->
-                                    </div>
+                                    <input name="userpassword" tabindex="2" placeholder="输入密码" class="pass-word" type="password" #userPasswordRef="ngModel" [(ngModel)]="userAuth.userPassword" autocomplete="off" required maxlength="30" minlength="6" />
+
+                                    <div [hidden]="(userAccountRef.invalid || userPasswordRef.invalid) && !form.submitted">
+                                        <span class="error-icon"></span><span class="help-block" *ngIf="userAccountRef.errors?.required">请输入登录账户</span>
+                                        <!--    <span class="error-icon"></span><span class="help-block" *ngIf="userPasswordRef.errors?.required">请输入登录密码</span>
+                                  --></div>
+
                                 </div>
                                 <div class="row forget-password">
                                     <span class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                  <input type="checkbox" name="rememberMe" id="rememberMe" [(ngModel)]="userAuth.rememberMe" class="auto-login" tabindex="4">
+                                  <input type="checkbox" name="rememberMe" id="rememberMe" [(ngModel)]="userAuth.rememberMe" class="auto-login" tabindex="3" />
                                   <label for="rememberMe">下次自动登录</label>
                           </span>
                                     <span class="col-xs-6 col-sm-6 col-md-6 col-lg-6 forget tracking-ad" data-mod="popu_26">
-                        <a href="https://passport.csdn.net/account/fpwd?action=forgotpassword&amp;service=https%3A%2F%2Fwww.csdn.net%2F" tabindex="5" target="_blank">忘记密码</a>
+                        <a href="https://passport.csdn.net/account/fpwd?action=forgotpassword&amp;service=https%3A%2F%2Fwww.csdn.net%2F" tabindex="4" target="_blank">忘记密码</a>
                     </span>
                                 </div>
-                                <input class="logging" accesskey="l" value="登 录" tabindex="6" type="submit">
+                                <input class="logging" accesskey="l" value="登 录" tabindex="5" type="submit" />
                                 <img *ngIf="loading" class="center-block" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
                                 />
                             </form>

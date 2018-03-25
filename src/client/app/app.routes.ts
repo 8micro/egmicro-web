@@ -6,12 +6,14 @@ import { Routes, RouterModule } from '@angular/router';
 import {
   HomePage,
   ActivePage,
-  LoginPage
+  LoginPage,
+  RegisterPage
 } from './pages';
 
 let routes: Routes = [
     { path: '', component: HomePage },
     { path: 'login', component: LoginPage },
+    { path: 'register', component: RegisterPage },
     { path: 'active', component: ActivePage },
     //{ path: '', component: HomeComponent },
     //{ path: '/login', component: LoginPage },
