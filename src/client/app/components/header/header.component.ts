@@ -15,7 +15,7 @@ export class HeaderComponent {
   public userData: any = null;
   public loginPassed: boolean = false;
 
-  constructor(
+  constructor (
     private _router: Router,
     private _authService: AuthenticateService) {
   }

@@ -6,13 +6,16 @@ import { Routes, RouterModule } from '@angular/router';
 import {
   HomePage,
   ActivePage,
-  LoginPage
+  LoginPage,
+  PlayerPage,
 } from './pages';
+
 
 let routes: Routes = [
     { path: '', component: HomePage },
     { path: 'login', component: LoginPage },
     { path: 'active', component: ActivePage },
+    { path: 'player', component: PlayerPage},
     //{ path: '', component: HomeComponent },
     //{ path: '/login', component: LoginPage },
     { path: '**', redirectTo: ''}

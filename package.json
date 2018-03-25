@@ -35,7 +35,9 @@
         "express-session": "^1.15.5",
         "moment": "^2.20.1",
         "multer": "^1.3.0",
-        "ng2-cookies": "^1.0.12"
+        "ng2-cookies": "^1.0.12",
+        "videogular": "^2.2.1",
+        "videojs-contrib-hls": "^5.14.1"
     },
     "devDependencies": {
         "@angularclass/resolve-angular-routes": "^1.0.9",
