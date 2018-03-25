@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { HttpRequestService } from './http-request.service';
-import { IUserLogin } from './../interfaces';
+import { IUserAuth } from './../interfaces';
 
 declare let messager: any;
 
@@ -16,10 +16,10 @@ export class AuthenticateService {
     private _http: HttpRequestService) {
   }
 
-  login(userLogin: IUserLogin): Promise<any> {
+  login(userAuth: IUserAuth): Promise<any> {
     return new Promise((resolve, reject) => {
       this.clearUserData();
-      this._http.post('/api/users/login', userLogin, { disableLoading: true })
+      this._http.post('/api/users/login', userAuth, { disableLoading: true })
         .then(res => {
           this.userData = res.json();
           resolve(this.userData);
@@ -38,10 +38,10 @@ export class AuthenticateService {
       this._http.get(`/api/users/islogin`)
         .then(res => {
           let result = res.json();
-          if (!result.IsLogin) {
+          if (!result.isLogin) {
             return resolve({});
           }
-          this.userData = result.userInfo;
+          this.userData = result.userData;
           resolve(this.userData);
         })
         .catch(err => {

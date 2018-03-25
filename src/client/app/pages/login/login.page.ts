@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticateService } from './../../services';
-import { IUserLogin } from './../../interfaces';
+import { IUserAuth } from './../../interfaces';
 
 declare let messager: any;
 
@@ -14,9 +14,9 @@ declare let messager: any;
 export class LoginPage implements OnInit {
 
   public loading: boolean;
-  public user: IUserLogin;
-  private isLogin: boolean;
-  private returnUrl: string;
+  public userAuth: IUserAuth;
+  public returnUrl: string;
+
   //private subscribers: Array<any> = [];
 
   constructor(
@@ -27,9 +27,9 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.loading = false;
-    this.user = {
-      username: '',
-      password: '',
+    this.userAuth = {
+      userAccount: '',
+      userPassword: '',
       rememberMe: false
     };
     let paramSub = this._route.params.subscribe(param => {
@@ -44,7 +44,7 @@ export class LoginPage implements OnInit {
     if (form.invalid)
       return;
     this.loading = true;
-    this._authService.login(this.user)
+    this._authService.login(this.userAuth)
       .then(data => {
         messager.success(`Hi! ${data.NickName}, 欢迎回来!`);
         this._router.navigateByUrl(this.returnUrl);

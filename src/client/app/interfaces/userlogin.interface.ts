@@ -1,6 +1,6 @@
-export interface IUserLogin {
-  username: string;
-  password: string;
+export interface IUserAuth {
+  userAccount: string;
+  userPassword: string;
   rememberMe: boolean;
 }
 

@@ -8,12 +8,14 @@ import {
   ActivePage,
   LoginPage,
   PlayerPage,
+  RegisterPage,
 } from './pages';
 
 
 let routes: Routes = [
     { path: '', component: HomePage },
     { path: 'login', component: LoginPage },
+    { path: 'register', component: RegisterPage },
     { path: 'active', component: ActivePage },
     { path: 'player', component: PlayerPage},
     //{ path: '', component: HomeComponent },

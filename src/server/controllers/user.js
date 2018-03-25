@@ -3,16 +3,15 @@ const config = require('./../config');
 const util = require('./../common/util');
 
 exports.islogin = (req, res, next) => {
-
     let result = {
-        IsLogin: false
+        isLogin: false
     };
-
     if (req.session.currentUser && req.session.currentUser.UserID) {
-        result.IsLogin = true;
-        getUserById(req.session.currentUser.UserID)
-            .then(userInfo => {
-                result.userInfo = userInfo;
+        result.isLogin = true;
+        getBaseUserById(req.session.currentUser.UserID)
+            .then(userData => {
+                req.session.currentUser = userData;
+                result.userData = userData;
                 res.json(result);
             })
             .catch(err => next(err));
@@ -22,14 +21,14 @@ exports.islogin = (req, res, next) => {
 }
 
 exports.login = (req, res, next) => {
-    let password = util.md5Crypto(req.body.password);
-    login(req.body.username, password, false)
-        .then(userInfo => {
-            req.session.currentUser = userInfo;
+    let userPassword = util.md5Crypto(req.body.userPassword);
+    login(req.body.userAccount, userPassword, false)
+        .then(userData => {
+            req.session.currentUser = userData;
             if (!!req.body.rememberMe) {
                 req.session.cookie.maxAge = 7 * 24 * 60 * 60 * 1000;
             }
-            res.json(userInfo);
+            res.json(userData);
         })
         .catch(err => next(err));
 }
@@ -47,24 +46,35 @@ exports.logout = (req, res, next) => {
 }
 
 exports.getCurrentUser = (req, res, next) => {
-    let userId = req.session.currentUser.UserID;
-    getUserById(userId)
-        .then(userInfo => {
-            res.json(userInfo);
-        })
-        .catch(err => next(err));
+    if (req.session.currentUser && req.session.currentUser.UserID) {
+        getBaseUserById(req.session.currentUser.UserID)
+            .then(userData => {
+                req.session.currentUser = userData;
+                res.json(userData);
+            })
+            .catch(err => next(err));
+    } else {
+        res.json({});
+    }
 }
 
-let login = (userId, password, needCrypto) => {
-    if (needCrypto) {
-        password = util.md5Crypto(password);
+let login = (userAccount, userPassword, needCrypto) => {
+    let authField;
+    let regExp = /[\w-\.]+@([\w-]+\.)+[a-z]{2,3}/;
+    if (regExp.test(userAccount)) {
+        authField = `Email`;
+    } else {
+        authField = `Mobile`;
     }
 
+    if (needCrypto) {
+        userPassword = util.md5Crypto(userPassword);
+    }
+    let token = util.JwtToken(config.prest.jwtSecret, config.prest.jwtExpired);
     let options = {
-        uri: `${config.prest.hostAPI}/users?Email=bobliu0909@gmail.com&Password=dbaad9bcf92df7207c624d45a6a81299`,
-        headers: { 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.zn_edhltxROuxiSeAqG_Dn1IgSTt5UGa8ZWrlnXOIPs' }
+        uri: `${config.prest.hostAPI}/users?${authField}=${userAccount}&Password=${userPassword}&_select=UserID,NickName,Email,Mobile,Sex,BirthDay,Area,Signature,Avatar,HomePage,State,Level,Score`,
+        headers: { 'Authorization': `Bearer ${token}` }
     };
-
     return new Promise((resolve, reject) => {
         request(options, (err, res, body) => {
             if (err) {
@@ -76,13 +86,13 @@ let login = (userId, password, needCrypto) => {
                 return reject(err);
             }
             try {
-                var userInfo = JSON.parse(body);
-                if (userInfo.length === 0) {
+                var users = JSON.parse(body);
+                if (users.length === 0) {
                     let err = new Error('auth failure, user password is not correct.');
                     err.statusCode = 401;
                     return reject(err);
                 }
-                return resolve(userInfo[0]);
+                return resolve(users[0]);
             } catch (err) {
                 err.statusCode = 500;
                 return reject(err);
@@ -91,12 +101,12 @@ let login = (userId, password, needCrypto) => {
     });
 }
 
-let getUserById = (userId) => {
+let getBaseUserById = (userId) => {
+    let token = util.JwtToken(config.prest.jwtSecret, config.prest.jwtExpired);
     let options = {
-        uri: `${config.prest.hostAPI}/users?UserID=ash7sWXpf3`,
-        headers: { 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.zn_edhltxROuxiSeAqG_Dn1IgSTt5UGa8ZWrlnXOIPs' }
+        uri: `${config.prest.hostAPI}/users?UserID=${userId}&_select=UserID,NickName,Email,Mobile,Sex,BirthDay,Area,Signature,Avatar,HomePage,State,Level,Score`,
+        headers: { 'Authorization': `Bearer ${token}` }
     };
-
     return new Promise((resolve, reject) => {
         request(options, (err, res, body) => {
             if (err) {
@@ -108,13 +118,13 @@ let getUserById = (userId) => {
                 return reject(err);
             }
             try {
-                var userInfo = JSON.parse(body);
-                if (userInfo.length === 0) {
+                var users = JSON.parse(body);
+                if (users.length === 0) {
                     let err = new Error('user not found.');
                     err.statusCode = 404;
                     return reject(err);
                 }
-                return resolve(userInfo[0]);
+                return resolve(users[0]);
             } catch (err) {
                 err.statusCode = 500;
                 return reject(err);
