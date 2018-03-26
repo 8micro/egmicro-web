@@ -4,4 +4,5 @@ export interface IVideoJSConfig {
     type: string;
     width: number;
     height: number;
+    title:string;
 }

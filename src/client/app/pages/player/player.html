@@ -1,8 +1,14 @@
 <div class="container">
     <hb-header></hb-header>
 
-<div class="container player" *ngFor = "let n of _testVideolist" >
-        <hb-videoplayer></hb-videoplayer>
+<div class="container player" *ngFor = "let item of _testVideolist" >
+        <div class="row" >
+            <div class="col-sm-3">
+                    <hb-videoplayer [videoUrl]="item.url" [videoWidth] = "item.width"  [videoHeight] = "item.height"
+                    [videoTitle]="item.title" [videoId]="item.id" [videoType] = "item.type"  ></hb-videoplayer>
+            </div>
+        </div >
+        
 </div>
   
     

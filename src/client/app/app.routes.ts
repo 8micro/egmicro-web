@@ -9,6 +9,7 @@ import {
   LoginPage,
   PlayerPage,
   RegisterPage,
+  VideoUploaderPage,
 } from './pages';
 
 
@@ -18,6 +19,7 @@ let routes: Routes = [
     { path: 'register', component: RegisterPage },
     { path: 'active', component: ActivePage },
     { path: 'player', component: PlayerPage},
+    { path: 'videouploader', component:VideoUploaderPage},
     //{ path: '', component: HomeComponent },
     //{ path: '/login', component: LoginPage },
     { path: '**', redirectTo: ''}
