@@ -24,10 +24,10 @@
                         </div>
                             
                             <div [hidden]="(videoTitle.invalid) && !form.submitted">
-                                <span class="error-icon"></span><span class="help-block" *ngIf="videoTitle.errors?.required">请输入视频标题</span>
+                                <span class="error-icon"></span><span class="help-block input-error" *ngIf="videoTitle.errors?.required">请输入视频标题</span>
                             </div>
                             <div [hidden]="(videoDesc.invalid) && !form.submitted">
-                                    <span class="error-icon"></span><span class="help-block" *ngIf="videoDesc.errors?.required">请输入视频介绍</span>
+                                    <span class="error-icon"></span><span class="help-block input-error" *ngIf="videoDesc.errors?.required">请输入视频介绍</span>
                             </div>
                        
                         

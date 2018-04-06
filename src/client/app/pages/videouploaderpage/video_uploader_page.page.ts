@@ -24,9 +24,9 @@ export class VideoUploaderPage implements OnInit {
 
     ngOnInit(){
         this._videoUploaderData = {
-            videoTitle: '默认标题',
-            videoDesc: '默认视频介绍',
-            videoFile: '默认视频'
+            videoTitle: '',
+            videoDesc: '',
+            videoFile: ''
         };
     }
 

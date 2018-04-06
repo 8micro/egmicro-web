@@ -29,7 +29,7 @@ export class VideoUploader implements   OnInit {
 
     ngOnInit() {
         this.uploadUrl_ = 'http://120.78.156.20/upload';
-        this.uploadUserId_ = "myuserid";
+        this.uploadUserId_ = "testuserid";
         this.templateName_ = 'qq-template-gallery';
         this.elementId_ = 'fine-uploader-gallery';
         this.debugFlag_ = true;
@@ -56,7 +56,11 @@ export class VideoUploader implements   OnInit {
 				sizeLimit: 80000000
             }
         });
-       
+
+        //let header1: string = Access-Control-Allow-Origin;
+
+        uploader.setCustomHeaders({'crossDomain':true});
+        
     }
 
 }
