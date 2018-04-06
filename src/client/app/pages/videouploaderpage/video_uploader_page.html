@@ -1,0 +1,41 @@
+<div class="container">
+        <hb-header></hb-header>
+        <div class="container uploader">
+                <form novalidate #form="ngForm" (ngSubmit)="uploadVideo(form)">
+                        <div class="form-group has-feedback" >
+                            <label for="videoTitleLabel">视频标题:</label>
+                            <input name="videoTitle" tabindex="1" placeholder="" class="video-title" type="text" #videoTitle="ngModel"
+                             [(ngModel)]="_videoUploaderData.videoTitle" autocomplete="off" required maxlength="50" minlength="4" />
+
+                        </div>
+
+                        <div class="form-group has-feedback" >
+                            <label for="videoDescLabel">视频简介:</label>
+                            <textarea name="videoDesc" tabindex="2" placeholder="" class="video-desc" rows="4" cols="50"   #videoDesc="ngModel" 
+                            [(ngModel)]="_videoUploaderData.videoDesc" autocomplete="off" required maxlength="50" minlength="15" >
+                            </textarea>
+                            
+                        </div>
+
+                        <div class="form-group has-feedback" >
+                            <div class="container">
+                                <hb-videoUploader></hb-videoUploader>
+                            </div>
+                        </div>
+                            
+                            <div [hidden]="(videoTitle.invalid) && !form.submitted">
+                                <span class="error-icon"></span><span class="help-block" *ngIf="videoTitle.errors?.required">请输入视频标题</span>
+                            </div>
+                            <div [hidden]="(videoDesc.invalid) && !form.submitted">
+                                    <span class="error-icon"></span><span class="help-block" *ngIf="videoDesc.errors?.required">请输入视频介绍</span>
+                            </div>
+                       
+                        
+                        <input class="logging" accesskey="l" value="提交" tabindex="3" type="submit" />
+                        <img *ngIf="loading" class="center-block" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                        />
+                    </form>
+
+        </div>
+    </div>
+    <hb-footer></hb-footer>
