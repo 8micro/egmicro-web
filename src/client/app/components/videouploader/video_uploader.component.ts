@@ -28,7 +28,7 @@ export class VideoUploader implements   OnInit {
     }
 
     ngOnInit() {
-        this.uploadUrl_ = 'http://120.78.156.20/upload';
+        this.uploadUrl_ = 'http://120.78.156.20:8087/upload';
         this.uploadUserId_ = "testuserid";
         this.templateName_ = 'qq-template-gallery';
         this.elementId_ = 'fine-uploader-gallery';
