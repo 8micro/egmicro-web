@@ -35,5 +35,6 @@ export class VideoUploaderPage implements OnInit {
             this._logger.log('填写的视频信息格式校验失败');
             return;
         }
+        this._logger.log('upload video start .....');
     }
 }

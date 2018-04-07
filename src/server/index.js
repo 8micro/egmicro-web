@@ -32,6 +32,8 @@ app.use(session({
 app.use(compression());
 
 app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     let ext = path.extname(req.url);
     if (ext && ext.length > 6) ext = null;
     if (req.method === 'GET' && !req.url.startsWith('/api') && !ext) {
